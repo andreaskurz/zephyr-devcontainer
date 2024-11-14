@@ -9,6 +9,7 @@ RUN apt-get -y update && \
   apt-get -y upgrade && \
   apt-get install --no-install-recommends -y \
   bash-completion \
+  curl \
   doxygen \
   graphviz \
   mscgen \
@@ -38,6 +39,9 @@ VOLUME ["/workspace"]
 # Adjust 'user' home directory permissions
 USER root
 RUN chown -R user:user /home/user
+
+# Add 'user' to groups to access USB devices
+RUN usermod -aG dialout user
 
 # Make 'user' default on launch
 USER user
